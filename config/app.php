@@ -54,7 +54,7 @@ return [
     */
     'directories' => [
         'languages' => 'resources/languages',
-        'templates' => 'templates',
+        'templates' => 'resources/templates',
         'assets' => 'resources/assets',
         'public' => 'public',
         'app' => 'app',
