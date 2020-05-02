@@ -1,0 +1,37 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<div class="page__content wysiwyg">
+		
+		{% if post.content is not empty %}
+			{{ post.content }}
+		{% endif %}
+		
+		<hr/>
+		
+		<figure class="drink-menu" id="untappd" role="application"></figure>
+		
+		<!--
+		<hr/>
+		
+		<figure class="drink-menu">
+			<h2 class="drink-menu__header">Wine</h2>
+		</figure>
+		
+		<hr/>
+		
+		<figure class="drink-menu">
+			<h2 class="drink-menu__header">Spirits</h2>
+		</figure>
+		
+		<hr/>
+		-->
+		
+		<div class="page__content--more">
+			<a href="{{ site.link }}/events" class="btn">Find Upcoming Events</a>
+			<a href="{{ site.link }}/photos" class="btn">View Photos</a>
+			<a href="{{ site.link }}/about" class="btn">About Us</a>
+		</div>
+		
+	</div>
+{% endblock %}

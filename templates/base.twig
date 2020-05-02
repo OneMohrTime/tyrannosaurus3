@@ -1,0 +1,66 @@
+{% block html_head_container %}
+
+{% include 'partial/html-header.twig' %}
+	{% block head %}
+	{% endblock %}
+	</head>
+{% endblock %}
+
+	<body class="{{ body_class }}" data-template="base.twig">
+		
+		<div id="container" class="site">
+		
+			{% block header %}
+			<header id="header" class="site__header" role="heading">
+				{% include 'partial/header.twig' %}
+			</header>
+			{% endblock %}
+
+			<main id="main" class="site__content" role="main">
+				
+				{% set main_events = fn('tribe_is_events_home') %}
+				
+				<article {% if main_events %}class="post_type-tribe_events tribe-events"
+						 {% else %}
+						 {% if post.id %}id="tyrannosaurus_{{ post.id }}"{% endif %}
+						 {% if post.post_type %}class="post_type-{{ post.post_type }} {{ post.post_type }}"
+						 {% else %}class="post_type-custom"
+						 {% endif %}
+						 {% endif %}
+						 {# TODO: tribe_events won't recognize as post type in loop #}
+						 role="article">
+					
+					{% if main_events %}
+						{% do action('tribe_events_before_the_title') %}
+						<h2 class="tribe-events__title" data-title="{{ fn('tribe_get_events_title') }}">{{ fn('tribe_get_events_title') }}</h2>
+						{% do action('tribe_events_after_the_title') %}
+					{% else %}
+						{% if post.title %}
+						<h2 class="page__title" data-title="{{ post.title }}">{{ post.title }}</h2>
+						{% endif %}
+					{% endif %}
+					
+					{% block content %}
+						Sorry, no content
+					{% endblock %}
+					
+				</article>
+				
+				{# if sidebar #}
+				<aside id="sidebar" class="site__sidebar" role="complementary">
+					{{ sidebar }}
+				</aside>
+				{# endif #}
+				
+			</main>
+
+			{% block footer %}
+			<footer id="footer">
+				{% include 'partial/footer.twig' %}
+			</footer>
+			{{ fn('wp_footer') }}
+			{% endblock %}
+		
+		</div>
+	</body>
+</html>

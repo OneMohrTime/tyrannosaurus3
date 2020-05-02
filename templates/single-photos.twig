@@ -1,0 +1,50 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<div class="page__content">
+		
+		<h3 class="gallery__date">{{ post.date | date('F j')}}</h3>
+		
+		{% if images %}
+		<div class="gallery__featured">
+			{% for image in images %}
+				<figure class="gallery__image">
+				
+					{% set src = TimberImage(image) %}
+
+					<img src="{{ src.src('thumbnail') }}"
+						 width="{{ src.width }}"
+						 height="{{ src.height }}"
+						 alt="{% if src.alt %}
+									{{ src.alt }}
+								{% else %}
+									photo taken at the pyramid scheme
+								{% endif %}"
+						 class="gallery__image--img" />
+					
+					{% if src.caption %}
+					<figcaption class="gallery__image--caption">
+						{{ src.caption }}
+					</figcaption>
+					{% endif %}
+					
+					<a href="{{ src.src('large') }}" class="gallery__image--link fancybox" target="_blank"></a>
+				
+				</figure>
+			{% endfor %}
+		</div>
+		{% endif %}
+		
+		<hr />
+		
+		<div class="gallery__text wysiwyg">
+			{{ post.content }}
+		</div>
+		
+		<div class="gallery__button wysiwyg">
+			<a href="{{ site.link }}/events" class="btn">Find More Events</a>
+		</div>
+		
+	
+	</div>
+{% endblock %}

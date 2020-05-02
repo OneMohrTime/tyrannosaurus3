@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<div class="page__content">
+		
+		{{ post.content }}
+		
+		{# for post in posts %}
+			{% include ['partial/tease-'~post.post_type~'.twig', 'partial/tease.twig'] %}
+		{% endfor #}
+		
+		{# include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } #}
+
+		{# if password
+		<form class="password-form" action="{{site.link}}/wp-login.php?action=postpass" method="post">
+			<label for="pwbox-{{post.ID}}">Password:</label>
+			<input class="password-box" name="post_password" id="pwbox-{{post.ID}}" type="password" placeholder="Password" size="20" maxlength="20" />
+			<input class="password-btn" type="submit" name="Submit" value="Submit" />
+		</form>
+		#}
+	
+	</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+<div id="on_this_day" class="widget widget__today">
+
+	{#
+	date('d'); // current day of the month, i.e. "04"
+	date('M'); // current month, i.e. "Mar"
+	date('l'); // current day of the week, i.e. "Thursday"
+	#}
+
+	<h4 class="widgettitle">Today <span class="date">{{ todays_date }}</span></h4>
+	<div class="widget widget__today--special wysiwyg">
+		
+		<h4 class="divider">Today&rsquo;s Events</h4>
+		
+		<!-- Today's event -->
+		{% if back_room is not empty %}
+			{% for show in back_room %}
+				<p><a href="{{ show.guid }}">{{ show.post_title }}</a></p>
+				<p>Doors open @ {{ fn('tribe_get_start_time', show.ID) }}</p>
+			{% endfor %}
+		{% else %}
+			<p>No events today. <a href="{{ site.link }}/events">Find one</a> coming soon!</p>
+		{% endif %}
+		
+		<!-- Daily Special -->
+		{% if day_of_week == 'Sunday' and option.daily_specials.sunday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.sunday }}
+		{% endif %}
+		{% if day_of_week == 'Monday' and option.daily_specials.monday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.monday }}
+		{% endif %}
+		{% if day_of_week == 'Tuesday' and option.daily_specials.tuesday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.tuesday }}
+		{% endif %}
+		{% if day_of_week == 'Wednesday' and option.daily_specials.wednesday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.wednesday }}
+		{% endif %}
+		{% if day_of_week == 'Thursday' and option.daily_specials.thursday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.thursday }}
+		{% endif %}
+		{% if day_of_week == 'Friday' and option.daily_specials.friday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.friday }}
+		{% endif %}
+		{% if day_of_week == 'Saturday' and option.daily_specials.saturday|length %}
+			<h4 class="divider">Bar Specials</h4>
+			{{ option.daily_specials.saturday }}
+		{% endif %}
+		
+		<!-- Happy Hour -->
+		<h4 class="divider">Happy Hour</h4>
+		{{ option.happy_hour }}
+
+	</div>
+</div>
+
+{{ global_sidebar }}
+
+<div id="pyramid_scheme_spotify" class="widget widget__spotify">
+	<h4 class="widgettitle">Upcoming Artists</h4>
+	<div class="iframe__frame">
+		<iframe src="https://open.spotify.com/embed?uri=spotify:user:pyramidschemebar:playlist:2fUIGkAiHKJt7pLMHDHUwE" allowtransparency="true"></iframe>
+	</div>
+	<div>
+		<a href="https://open.spotify.com/user/pyramidschemebar/playlist/2fUIGkAiHKJt7pLMHDHUwE" class="btn btn--lg" rel="me" title="Follow The Pyramid Scheme on Spotify" aria-label="Follow The Pyramid Scheme on Spotify">Follow Us On Spotify</a>
+	</div>
+</div>

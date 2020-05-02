@@ -1,0 +1,57 @@
+{% do action('tribe_events_list_before_the_content') %}
+
+{% do action('tribe_events_before_loop') %}
+
+{% for event in events %}
+
+	<!-- Month / Year Headers -->
+	{# {{ fn('tribe_events_list_the_date_headers') }} #}
+	
+	<div id="event_{{ event.ID }}" class="event {{ fn('tribe_events_event_classes') }}">
+
+		<div class="event__date">{{ fn('tribe_get_start_date', event.ID, false, 'M d Y') }}</div>
+
+		<h3 class="event__title">{{ event.title }}</h3>
+		<h3 class="event__title--clone">{{ event.title }}</h3>
+
+		{% if fn('tribe_get_cost') %}
+		<div class="event__cost">
+			{{ fn('tribe_get_cost', event.ID, true) }}
+			{% do action( 'tribe_events_inside_cost' ) %}
+		</div>
+		{% endif %}
+		
+		{% if event.terms %}
+		<div class="event__button ages">
+			{% for age in event.terms %}
+				{{ age }}
+			{% endfor %}
+		</div>
+		{% endif %}
+		
+		<div class="event__button">Info</div>
+		
+		<a class="event__button ticketweb" href="{{ event.get_field('ticketweb_event') }}" target="_blank" title="Buy on Ticketweb">Tickets</a>
+		
+		<a href="{{ event.link }}" class="event__link" rel="bookmark"></a>
+
+	</div>
+    
+{% endfor %}
+{#
+<div class="scroller-status">
+	<div class="infinite-scroll-request loader-ellips">
+		<span class="loader-ellips__dot"></span>
+		<span class="loader-ellips__dot"></span>
+		<span class="loader-ellips__dot"></span>
+		<span class="loader-ellips__dot"></span>
+	</div>
+	<p class="infinite-scroll-last">End of content</p>
+	<p class="infinite-scroll-error">No more pages to load</p>
+</div>
+
+<aside class="tribe-events__pagination">
+	{{ fn('get_next_posts_link', 'Load More') }}
+</aside>
+#}
+{% do action('tribe_events_after_loop') %}

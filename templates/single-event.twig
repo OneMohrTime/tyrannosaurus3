@@ -1,0 +1,135 @@
+<div id="page_events" class="tribe-events__single" itemscope itemtype="http://schema.org/Event">
+	
+	{# Notices #}
+	{{ fn('tribe_the_notices') }}
+	
+	<div id="tribe_events_header" class="tribe-events__single--visuallyhidden" {{ fn('tribe_events_the_header_attributes') }} itemprop="name">{{ post.post_title }}</div>
+	
+	<div id="event_{{ post.ID }}" class="tribe-events__single--content">
+		
+		{# if fn('tribe_event_featured_image') #}
+		<figure class="tribe-events__single--image" itemprop="image">
+			<a href="{{ post.get_field('ticketweb_event') }}" class="btn btn--lg" target="_blank" title="Buy tickets" itemprop="url" aria-label="Buy tickets to {{ post.post_title }}">Buy Tickets</a>
+			<hr>
+			{{ fn('tribe_event_featured_image', null, 'full', false, true) }}
+		</figure>
+		{# endif #}
+		
+		<div class="tribe-events__single--description" itemprop="about">
+			
+			<h3 class="divider">Details</h3>
+			
+			<div class="wysiwyg">
+				<p>Below you can find the event details to {{ post.post_title }}. Also check out our <a href="{{ site.link }}/faq">FAQ</a> page.</p>
+			</div>
+			<table class="ui very basic stackable table">
+				<tbody>
+					
+					<tr class="detail date">
+						<td class="three wide"><strong>Date</strong></td>
+						<td class="thirteen wide" itemprop="startDate">{{ fn('tribe_get_start_date', post.ID, false, 'l, F j') }}</td>
+					</tr>
+					
+					<tr class="detail time">
+						<td class="three wide"><strong>Doors @</strong></td>
+						<td class="thirteen wide" itemprop="doorTime">{{ fn('tribe_get_start_time', post.ID) }}</td>
+					</tr>
+					
+					{% if fn('tribe_get_cost') %}
+					<tr class="detail cost">
+						<td class="three wide"><strong>Costs</strong></td>
+						<td class="thirteen wide" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+							<span itemprop="price" content="{{ fn('tribe_get_formatted_cost') }}">
+								<span itemprop="priceCurrency" content="USD">
+									{{ fn('tribe_get_cost', null, true) }}
+								</span>
+							</span>
+						</td>
+					</tr>
+					{% endif %}
+					
+					{% set ages = fn('tribe_meta_event_tags', __( null, 'tribe-events-calendar' ), '', false) %}
+					
+					{% if ages  %}
+					<tr class="detail ages">
+						<td class="three wide"><strong>Ages</strong></td>
+						<td class="thirteen wide" itemprop="typicalAgeRange">{{ ages }}</td>
+					</tr>
+					{% endif %}
+					
+				</tbody>
+			</table>
+			
+			{% if post.content %}
+				{# Event content #}
+				<h3 class="divider">Description</h3>
+				
+				{% do action( 'tribe_events_single_event_before_the_content' ) %}
+				<div class="wysiwyg">
+					{% if fn('tribe_is_recurring_event') == 1 %}
+						<p><strong>This is a recurring event!</strong></p>
+					{% endif %}
+					{{ post.content }}
+				</div>
+				{% do action( 'tribe_events_single_event_after_the_content' ) %}
+				
+			{% endif %}
+			
+			{# Event TicketWeb link #}
+			{% if post.get_field('ticketweb_event') %}
+				
+				<h3 class="divider">Want to attend?</h3>
+				<div class="wysiwyg">
+					{{ option.ticketweb }}
+				</div>
+				
+				<br>
+				
+				<span itemprop="location" itemscope itemtype="http://schema.org/Place">
+					<strong itemprop="url">{{ fn('tribe_get_venue_details', post.ID)['linked_name'] }}</strong>
+					<span id="tribe_address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{ fn('tribe_get_venue_details', post.ID)['address'] }}</span>
+				</span>
+				
+				<div class="tribe-events__ticket">
+					<a href="{{ post.get_field('ticketweb_event') }}" class="btn btn--lg" target="_blank" title="Buy tickets" itemprop="url" aria-label="Buy tickets to {{ post.post_title }}">Buy Tickets</a>
+				</div>
+			{% endif %}
+			
+			<!-- Event meta -->
+			{# {% do action( 'tribe_events_single_event_before_the_meta' ) %} #}
+			{# {% include 'modules/meta' %} #}
+			{# {% do action( 'tribe_events_single_event_after_the_meta' ) %} #}
+			
+		</div>
+		
+	</div>
+	
+	<div id="tribe-events_footer" class="tribe-events__single--footer">
+		
+		<hr>
+		
+		<h3 class="tribe-events__single--sub-nav-title">Interested in more events?</h3>
+		
+		<ul class="tribe-events__single--sub-nav btn-container">
+			
+			<li class="tribe-events-nav-back">
+				<a href="{{ site.link }}/events" class="btn">All Events</a>
+			</li>
+			
+			{% if fn('tribe_has_next_event') == false %}
+			<li class="tribe-events-nav-next">
+				{{ fn('tribe_the_next_event_link', 'Next: %title%') }}
+			</li>
+			{% endif %}
+			
+			{% if fn('tribe_has_previous_event') %}
+			<li class="tribe-events-nav-previous">
+				{{ fn('tribe_the_prev_event_link', 'Prev: %title%') }}
+			</li>
+			{% endif %}
+			
+		</ul>
+		
+	</div>
+
+</div><!-- /.tribe-events__single -->

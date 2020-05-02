@@ -1,0 +1,29 @@
+{% block content %}
+<div class="ui link cards">
+
+	<figure class="tease tease-{{ post.post_type }} card" id="tease_{{ post.ID }}">
+		
+		{% if post.get_thumbnail %}
+		<a class="image" href="{{post.link}}">
+			<img src="{{ post.thumbnail.src('thumbnail') }}"
+				 alt="{{ post.thumbnail.alt }}"
+				 width="{{ post.thumbnail.width }}"
+				 height="{{ post.thumbnail.height }}" />
+		</a>
+		{% endif %}
+		
+		<div class="content">
+			<a href="{{ post.link }}" class="header">{{ post.title }}</a>
+			<div class="description">
+				<p>{{ post.preview.length(25) }}</p>
+			</div>
+			<div class="meta">
+				
+			</div>
+		</div>
+		<a href="{{ post.link }}" class="ui bottom attached button" title="Read {{ post.title }}">Read {{ post.title }}</a>
+		
+	</figure>
+	
+</div>
+{% endblock %}

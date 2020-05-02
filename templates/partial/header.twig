@@ -1,0 +1,65 @@
+<button id="menu_toggle" class="btn--toggle">
+	<span class="menu-grid open"></span>
+</button>
+
+<figure id="logo" class="header__logo">
+	<img src="{{ logo.0 }}" alt="The Pyramid Scheme logo" width="{{ logo.1 }}" height="{{ logo.2 }}" />
+	<a href="{{ site.link }}" class="header__logo--link"></a>
+</figure>
+
+<nav id="navigation" class="main-nav" role="navigation">
+	<figure class="main-nav__banner">
+		
+		<img src="{{ mobile_logo }}" alt="The Pyramid Scheme logo" class="main-nav__image" />
+		
+		<h1 class="main-nav__title">{{ site.title }}</h1>
+		<h3 class="main-nav__subtitle">Grand Rapids, Michigan</h3>
+
+		<ul class="main-nav__social">
+			<li>
+				<a href="//facebook.com/ThePyramidScheme/" target="_blank" title="The Pyramid Scheme">
+					{% include '/assets/images/icon__facebook.svg' %}
+				</a>
+			</li>
+			<li>
+				<a href="//twitter.com/pyramidschemegr" target="_blank" title="@PyramidSchemeGR">
+					{% include '/assets/images/icon__twitter.svg' %}
+				</a>
+			</li>
+			<li>
+				<a href="//instagram.com/pyramidschemegr" target="_blank" title="@pyramidschemegr">
+					{% include '/assets/images/icon__instagram.svg' %}
+				</a>
+			</li>
+		</ul>
+
+	</figure>
+
+	{% include "partial/menu.twig" with {'menu': menu.get_items} %}
+
+</nav>
+
+<div class="main-nav__fade"></div>
+
+<ul class="header__social">
+	<li class="header__social--link">
+		<a href="//facebook.com/ThePyramidScheme" target="_blank" title="The Pyramid Scheme">
+			{% include '/assets/images/icon__facebook.svg' %}
+		</a>
+	</li>
+	<li class="header__social--link">
+		<a href="//twitter.com/pyramidschemegr" target="_blank" title="@PyramidSchemeGR">
+			{% include '/assets/images/icon__twitter.svg' %}
+		</a>
+	</li>
+	<li class="header__social--link">
+		<a href="//instagram.com/pyramidschemegr" target="_blank" title="@pyramidschemegr">
+			{% include '/assets/images/icon__instagram.svg' %}
+		</a>
+	</li>
+	<li class="header__social--link">
+		<a href="//etsy.com/shop/PyramidSchemeTShirts" target="_blank" title="Pyramid Scheme T-Shirts">
+			{% include '/assets/images/icon__etsy.svg' %}
+		</a>
+	</li>
+</ul>

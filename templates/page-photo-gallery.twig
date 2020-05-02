@@ -1,0 +1,75 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<div class="galleries__content">
+	
+	{% if photo_albums %}
+
+		{% for album in photo_albums %}
+		<figure class="album">
+
+			<h3 class="album__title">{{ album.title }}</h3>
+			
+			{% if album.get_field('gallery') %}
+			<div class="album__photosteam">
+
+				{% for reel in album.get_field('gallery') | slice(0, 7) %}
+
+					{% set photo = TimberImage(reel) %}
+
+					<a href="{{ album.link }}">
+						<img src="{{ photo.src('thumbnail') }}"
+							 alt="{{ reel.alt }}"
+							 width="{{ reel.width }}"
+							 height="{{ reel.height }}"
+							 class="album__thumbnail" />
+					</a>
+				{% endfor %}
+				
+				<a href="{{ album.link }}" class="view-all" title="{{ album.content | truncate(10) }}">
+					<span></span>
+					<span>See More</span>
+				</a>
+
+			</div>
+			{% endif %}
+			
+			<div class="album__button wysiwyg">
+				<p><a href="{{ album.link }}" title="View photos from {{ album.title }}">View Album <span></span></a> // posted <time>{{ album.post_date_gmt | time_ago }}</time>
+			</div>
+
+			<a href="{{ album.link }}" class="album__link"></a>
+		</figure>
+		{% endfor %}
+		
+	{% endif %}
+
+	{{ post.content }}
+		
+	<nav class="galleries__pagination" style="display:none;">
+		{% if photo_albums.pagination.prev %}
+			<a href="{{ photo_albums.pagination.prev.link }}" class="btn prev {{ photo_albums.pagination.prev.link | length ? '' : 'invisible' }}">Prev</a>
+		{% else %}
+			<a href="javascript:void(0)" class="btn btn--disabled">Prev</a>
+		{% endif %}
+		<ul class="pagination">
+			{% for page in photo_albums.pagination.pages %}
+				<li class="pagination__page wysiwyg">
+					{% if page.link %}
+						<a href="{{ page.link}}" class="{{ page.class }}">{{ page.title }}</a>
+					{% else %}
+						<span class="{{ page.class }}">{{ page.title }}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+		{% if photo_albums.pagination.next %}
+			<a href="{{ photo_albums.pagination.next.link }}" class="btn next {{ photo_albums.pagination.next.link | length ? '' : 'invisible' }}">Next</a>
+		{% else %}
+			<a href="javascript:void(0)" class="btn btn--disabled">Next</a>
+		{% endif %}
+	</nav>
+	
+	</div>
+
+{% endblock %}

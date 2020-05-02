@@ -1,0 +1,43 @@
+<footer class="site__footer" itemscope itemtype="http://schema.org/WPFooter">
+
+	<figure class="site__footer--image">
+		<img src="{{ theme.link }}/assets/images/logo--footer.png" alt="The Pyramid Scheme logo" />
+	</figure>
+
+	<div class="site__footer--left">
+		<h5>Hours</h5>
+		{{ option.hours }}
+	</div>
+
+	<div class="site__footer--right">
+		<h5>Be In The Know</h5>
+		<div class="subscribe">
+			<iframe src="https://pages.email.ticketweb.com/1315539/signup/" frameborder="0" scrolling="no"></iframe>
+		</div>
+		{{ option.footer_email }}
+	</div>
+
+	<div class="site__footer--info" role="contentinfo" itemscope itemtype="http://schema.org/LocalBusiness">
+		
+		<address class="site__footer--address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+			<span itemprop="streetAddress">68 Commerce Dr SW</span><br />
+			<span itemprop="addressLocality">Grand Rapids</span>,
+			<span itemprop="addressRegion">MI</span>
+			<span itemprop="postalCode">49503</span>
+			<a href="https://goo.gl/maps/18gHMSyXhXC2" target="_blank"></a>
+		</address>
+		
+		<ul class="site__footer--copyright">
+			<li>&copy; 2013 &ndash; {{ 'now' | date('Y') }}. All rights reserved.</li>
+			<li><a href="{{ site.link }}/privacy-policy">Privacy Policy</a></li>
+			<li><a href="{{ site.link }}/terms-of-use">Terms of Use</a></li>
+		</ul>
+		
+		<ul class="site__footer--credits">
+			<li>Website by <a href="//onemohrti.me" target="_blank">Derek Mohr</a></li>
+			<li>Photography by <a href="//katybatdorff.com" target="_blank">Katy Batdorff</a></li>
+		</ul>
+		
+	</div>
+
+</footer><!-- /.site__footer -->

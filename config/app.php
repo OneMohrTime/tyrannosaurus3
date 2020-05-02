@@ -24,7 +24,7 @@ return [
     |
     */
     'templates' => [
-        'extension' => '.tpl.php'
+        'extension' => '.twig'
     ],
 
     /*
@@ -54,7 +54,7 @@ return [
     */
     'directories' => [
         'languages' => 'resources/languages',
-        'templates' => 'resources/templates',
+        'templates' => 'templates',
         'assets' => 'resources/assets',
         'public' => 'public',
         'app' => 'app',

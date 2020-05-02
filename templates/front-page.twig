@@ -1,0 +1,84 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<div class="home__content">
+		
+		<h3 class="home__title" data-title="Featured Events">Featured Events</h3>
+		
+		{% if featured %}
+		<section class="home__featured">
+				
+			{% for feature in featured %}
+				<figure class="featured-event {{ feature.post_type }}">
+
+					<a href="{{ feature.guid }}" class="featured-event__image" tabindex="-1">
+						{% set src = feature.thumbnail %}
+						{% spaceless %}
+						<img src="{{ src.src('thumbnail') }}"
+							 width="{{ src.width }}"
+							 height="{{ src.height }}"
+							 alt="{% if src.caption %}
+										{{ src.caption }}
+									{% else %}
+										Event poster for {{ feature.post_title }}
+									{% endif %}"
+							 class="image"
+							 srcset="{{ src.src('medium') }} 768w,
+									 {{ src.src('large') }} 1440w" />
+						{% endspaceless %}
+					</a>
+
+					<figcaption class="featured-event__caption">
+
+						<h4 class="featured-event__title">{{ feature.post_title }}</h4>
+
+						<ul class="featured-event__list">
+
+							<li class="featured-event__list--item cost">
+								Costs <span>{{ fn('tribe_get_formatted_cost', feature.ID) }}</span>
+							</li>
+
+							{% if fn('tribe_get_cost', feature.ID) %}
+							<li class="featured-event__list--item time">
+								Doors @ {{ fn('tribe_get_start_time', feature.ID) }}
+							</li>
+							{% endif %}
+
+							<!--<li class="featured-event__list--item ages">
+								<span>{{ fn('tribe_meta_event_tags') }}</span>
+							</li>-->
+
+							<li class="featured-event__list--item tickets">
+								<span><a href="{{ feature.get_field('ticketweb_event') }}" target="_blank">Tickets {% include '/assets/images/icon__arrow--right.svg' %}</a></span>
+							</li>
+
+						</ul>
+
+					</figcaption>
+
+					<a href="{{ feature.guid }}" class="featured-event__link"></a>
+
+				</figure>
+			{% endfor %}
+			
+		</section>
+		{% endif %}
+		
+		<div class="home__intro wysiwyg">
+			{{ post.content }}
+		</div>
+		
+		<h3 class="home__title" data-title="All Upcoming Shows">All Upcoming Shows</h3>
+		
+		{% for post in posts %}
+			{% include ['partial/tease-'~post.post_type~'.twig', 'partial/tease.twig'] %}
+		{% endfor %}
+		
+		<div class="home__content--more btn-container">
+			<a href="{{ site.link }}/events" class="btn btn--wide">See All Upcoming Shows</a>
+			<a href="{{ site.link }}/photos" class="btn">Past Shows</a>
+			<a href="{{ site.link }}/faq" class="btn">Event FAQ</a>
+		</div>
+	
+	</div>
+{% endblock %}
